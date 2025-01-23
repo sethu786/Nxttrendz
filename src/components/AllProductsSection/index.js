@@ -9,35 +9,18 @@ import ProductsHeader from '../ProductsHeader'
 import './index.css'
 
 const categoryOptions = [
-  {
-    name: 'Clothing',
-    categoryId: '1',
-  },
-  {
-    name: 'Electronics',
-    categoryId: '2',
-  },
-  {
-    name: 'Appliances',
-    categoryId: '3',
-  },
-  {
-    name: 'Grocery',
-    categoryId: '4',
-  },
-  {
-    name: 'Toys',
-    categoryId: '5',
-  },
+  {name: 'electronics', categoryId: 'electronics'},
+  {name: 'jewelery', categoryId: 'jewelery'},
+  {name: "men's clothing", categoryId: "men's clothing"},
+  {name: "women's clothing", categoryId: "women's clothing"},
 ]
-
 const sortbyOptions = [
   {
-    optionId: 'PRICE_HIGH',
+    optionId: 'desc',
     displayText: 'Price (High-Low)',
   },
   {
-    optionId: 'PRICE_LOW',
+    optionId: 'asc',
     displayText: 'Price (Low-High)',
   },
 ]
@@ -77,7 +60,7 @@ class AllProductsSection extends Component {
     productsList: [],
     apiStatus: apiStatusConstants.initial,
     activeOptionId: sortbyOptions[0].optionId,
-    activeCategoryId: '',
+    activeCategoryId: 'electronics',
     searchInput: '',
     activeRatingId: '',
   }
@@ -91,13 +74,9 @@ class AllProductsSection extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
     const jwtToken = Cookies.get('jwt_token')
-    const {
-      activeOptionId,
-      activeCategoryId,
-      searchInput,
-      activeRatingId,
-    } = this.state
-    const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`
+    const {activeOptionId, activeCategoryId} = this.state
+    console.log(activeCategoryId)
+    const apiUrl = `https://fakestoreapi.com/products/category/${activeCategoryId}?sort=${activeOptionId}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -107,13 +86,13 @@ class AllProductsSection extends Component {
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const fetchedData = await response.json()
-      const updatedData = fetchedData.products.map(product => ({
+      const updatedData = fetchedData.map(product => ({
         title: product.title,
-        brand: product.brand,
+        description: product.description,
         price: product.price,
+        category: product.category,
         id: product.id,
-        imageUrl: product.image_url,
-        rating: product.rating,
+        imageUrl: product.image,
       }))
       this.setState({
         productsList: updatedData,

@@ -1,131 +1,48 @@
-import {Link, withRouter} from 'react-router-dom'
-import Cookies from 'js-cookie'
+import React from 'react'
+import './index.css' // Import the CSS file for styling
 
-import CartContext from '../../context/CartContext'
+const Header = () => (
+  <header>
+    {/* Top Bar */}
+    <div className="top-bar">
+      <span className="top-bar-item">Lorem ipsum dolor</span>
+      <span className="top-bar-item">Lorem ipsum dolor</span>
+      <span className="top-bar-item">Lorem ipsum dolor</span>
+    </div>
 
-import './index.css'
-
-const Header = props => {
-  const onClickLogout = () => {
-    const {history} = props
-    Cookies.remove('jwt_token')
-    history.replace('/login')
-  }
-
-  const renderCartItemsCount = () => (
-    <CartContext.Consumer>
-      {value => {
-        const {cartList} = value
-        const cartItemsCount = cartList.length
-
-        return (
-          <>
-            {cartItemsCount > 0 ? (
-              <span className="cart-count-badge">{cartList.length}</span>
-            ) : null}
-          </>
-        )
-      }}
-    </CartContext.Consumer>
-  )
-
-  return (
-    <nav className="nav-header">
-      <div className="nav-content">
-        <div className="nav-bar-mobile-logo-container">
-          <Link to="/">
-            <img
-              className="website-logo"
-              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
-              alt="website logo"
-            />
-          </Link>
-
-          <button
-            type="button"
-            className="nav-mobile-btn"
-            onClick={onClickLogout}
-          >
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-log-out-img.png"
-              alt="nav logout"
-              className="nav-bar-img"
-            />
-          </button>
+    {/* Main Header */}
+    <div className="main-header">
+      {/* Logo Section */}
+      <div className="header-top">
+        <div className="logo">
+          <img
+            src="https://res.cloudinary.com/dgledopgq/image/upload/v1737636401/Logo_oezo3v.png"
+            alt="Logo"
+          />
         </div>
 
-        <div className="nav-bar-large-container">
-          <Link to="/">
-            <img
-              className="website-logo"
-              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
-              alt="website logo"
-            />
-          </Link>
-          <ul className="nav-menu">
-            <li className="nav-menu-item">
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-            </li>
-
-            <li className="nav-menu-item">
-              <Link to="/products" className="nav-link">
-                Products
-              </Link>
-            </li>
-
-            <li className="nav-menu-item">
-              <Link to="/cart" className="nav-link">
-                Cart
-                {renderCartItemsCount()}
-              </Link>
-            </li>
-          </ul>
-          <button
-            type="button"
-            className="logout-desktop-btn"
-            onClick={onClickLogout}
-          >
-            Logout
-          </button>
+        {/* Icons */}
+        <div className="icons">
+          <span className="icon">🔍</span>
+          <span className="icon">❤️</span>
+          <span className="icon">👜</span>
+          <span className="icon">👤</span>
+          <div className="language">
+            ENG <span className="dropdown-arrow">▼</span>
+          </div>
         </div>
       </div>
-      <div className="nav-menu-mobile">
-        <ul className="nav-menu-list-mobile">
-          <li className="nav-menu-item-mobile">
-            <Link to="/" className="nav-link">
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-home-icon.png"
-                alt="nav home"
-                className="nav-bar-img"
-              />
-            </Link>
-          </li>
 
-          <li className="nav-menu-item-mobile">
-            <Link to="/products" className="nav-link">
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-products-icon.png"
-                alt="nav products"
-                className="nav-bar-img"
-              />
-            </Link>
-          </li>
-          <li className="nav-menu-item-mobile">
-            <Link to="/cart" className="nav-link">
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-cart-icon.png"
-                alt="nav cart"
-                className="nav-bar-img"
-              />
-              {renderCartItemsCount()}
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  )
-}
+      {/* Navigation */}
+      <nav className="navigation">
+        <a href="#shop">SHOP</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#stories">STORIES</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT US</a>
+      </nav>
+    </div>
+  </header>
+)
 
-export default withRouter(Header)
+export default Header
